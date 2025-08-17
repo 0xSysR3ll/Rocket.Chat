@@ -1,10 +1,13 @@
 import { PaletteStyleTag } from '@rocket.chat/fuselage';
-import { useThemeMode } from '@rocket.chat/ui-theming';
+import { useUserPreference } from '@rocket.chat/ui-contexts';
+import { useDarkMode } from '@rocket.chat/fuselage-hooks';
 
 import { codeBlock } from '../lib/codeBlockStyles';
 
 export const MainLayoutStyleTags = () => {
-	const [, , theme] = useThemeMode();
+	const userThemePreference = useUserPreference('themeAppearence') || 'auto';
+	const isDark = useDarkMode(userThemePreference === 'auto' ? undefined : userThemePreference === 'dark');
+	const theme = isDark ? 'dark' : 'light';
 
 	return (
 		<>

@@ -1,14 +1,16 @@
-import { License } from '@rocket.chat/license';
+// import { License } from '@rocket.chat/license';
 
 export const disableCustomScripts = () => {
-	const license = License.getLicense();
+	// FOSS: License check disabled - always return false
+	// const license = License.getLicense();
 
-	if (!license) {
-		return false;
-	}
+	// if (!license) {
+	// 	return false;
+	// }
 
-	const isCustomScriptDisabled = process.env.DISABLE_CUSTOM_SCRIPTS === 'true';
-	const isTrialLicense = license?.information.trial;
+	// const isCustomScriptDisabled = process.env.DISABLE_CUSTOM_SCRIPTS === 'true';
+	// const isTrialLicense = license?.information.trial;
 
-	return isCustomScriptDisabled && isTrialLicense;
+	// return isCustomScriptDisabled && isTrialLicense;
+	return false;
 };

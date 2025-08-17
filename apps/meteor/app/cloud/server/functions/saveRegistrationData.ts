@@ -1,4 +1,4 @@
-import { applyLicense } from '@rocket.chat/license';
+// import { applyLicense } from '@rocket.chat/license';
 import { Settings } from '@rocket.chat/models';
 
 import { syncCloudData } from './syncWorkspace/syncCloudData';
@@ -120,5 +120,6 @@ export async function saveRegistrationDataManual({
 		publicKey,
 		registration_client_uri,
 	});
-	await applyLicense(licenseData.license, true);
+	// await applyLicense(licenseData.license, true);
+	console.log('FOSS version - license application skipped');
 }

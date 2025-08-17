@@ -1,6 +1,6 @@
 import { ServiceStarter } from '@rocket.chat/core-services';
 import { LivechatInquiryStatus, type InquiryWithAgentInfo, type IOmnichannelQueue } from '@rocket.chat/core-typings';
-import { License } from '@rocket.chat/license';
+// import { License } from '@rocket.chat/license';
 import { LivechatInquiry, LivechatRooms } from '@rocket.chat/models';
 import { tracerSpan } from '@rocket.chat/tracing';
 
@@ -88,11 +88,12 @@ export class OmnichannelQueue implements IOmnichannelQueue {
 				return;
 			}
 
-			if (await License.shouldPreventAction('monthlyActiveContacts', 1)) {
-				queueLogger.debug('MAC limit reached. Queue wont execute');
-				this.running = false;
-				return;
-			}
+			// FOSS: License check disabled - always allow queue execution
+			// if (await License.shouldPreventAction('monthlyActiveContacts', 1)) {
+			// 	queueLogger.debug('MAC limit reached. Queue wont execute');
+			// 	this.running = false;
+			// 	return;
+			// }
 
 			// We still go 1 by 1, but we go with every queue every cycle instead of just 1 queue per cycle
 			// And we get tracing :)

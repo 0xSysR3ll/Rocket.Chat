@@ -1,10 +1,10 @@
-import type { IWorkspaceCredentials } from '@rocket.chat/core-typings';
+// import type { IWorkspaceCredentials } from '@rocket.chat/core-typings'; // Removed for FOSS
 import type { IWorkspaceCredentialsModel } from '@rocket.chat/model-typings';
 import type { Db, DeleteResult, Filter, IndexDescription, UpdateResult } from 'mongodb';
 
 import { BaseRaw } from './BaseRaw';
 
-export class WorkspaceCredentialsRaw extends BaseRaw<IWorkspaceCredentials> implements IWorkspaceCredentialsModel {
+export class WorkspaceCredentialsRaw extends BaseRaw<any> implements IWorkspaceCredentialsModel {
 	constructor(db: Db) {
 		super(db, 'workspace_credentials');
 	}
@@ -13,8 +13,8 @@ export class WorkspaceCredentialsRaw extends BaseRaw<IWorkspaceCredentials> impl
 		return [{ key: { scope: 1, expirationDate: 1, accessToken: 1 }, unique: true }];
 	}
 
-	getCredentialByScope(scope = ''): Promise<IWorkspaceCredentials | null> {
-		const query: Filter<IWorkspaceCredentials> = { scope };
+	getCredentialByScope(scope = ''): Promise<any | null> {
+		const query: Filter<any> = { scope };
 
 		return this.findOne(query);
 	}
@@ -36,7 +36,7 @@ export class WorkspaceCredentialsRaw extends BaseRaw<IWorkspaceCredentials> impl
 			},
 		};
 
-		const query: Filter<IWorkspaceCredentials> = { scope };
+		const query: Filter<any> = { scope };
 
 		return this.updateOne(query, record, { upsert: true });
 	}

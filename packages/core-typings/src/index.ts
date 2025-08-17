@@ -46,8 +46,8 @@ export * from './IUserSession';
 export * from './IUserStatus';
 export * from './IUser';
 
-export * from './ee/IAuditLog';
-export * from './ee/IWorkspaceCredentials';
+// export * from './ee/IAuditLog'; // Removed for FOSS
+// export * from './ee/IWorkspaceCredentials'; // Removed for FOSS
 
 export * from './import';
 export * from './IIncomingMessage';

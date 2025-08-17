@@ -1,0 +1,62 @@
+services:
+  rocketchat-foss:
+    build:
+      context: .
+      dockerfile: Dockerfile.foss
+    image: rocketchat-foss:latest
+    container_name: rocketchat-foss
+    restart: unless-stopped
+    environment:
+      - ADMIN_USERNAME=administrator
+      - ADMIN_PASS=admin123
+      - ADMIN_EMAIL=admin@example.com
+      - OVERWRITE_SETTING_Show_Setup_Wizard=completed
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://mongo:27017/rocketchat?replicaSet=rs0
+      - ROOT_URL=http://localhost:3000
+      - PORT=3000
+      - DEPLOY_METHOD=docker
+      - MAIL_URL=smtp://localhost:25
+    ports:
+      - "3000:3000"
+    volumes:
+      - rocketchat-uploads:/app/uploads
+    depends_on:
+      - mongo
+    networks:
+      - rocketchat-network
+
+  mongo:
+    image: mongo:6.0
+    container_name: rocketchat-mongo
+    restart: unless-stopped
+    command: mongod --oplogSize 128 --replSet rs0
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - rocketchat-network
+
+  mongo-init:
+    image: mongo:6.0
+    container_name: rocketchat-mongo-init
+    restart: "no"
+    depends_on:
+      - mongo
+    command: >
+      bash -c "
+        sleep 15
+        mongosh --host mongo --eval 'rs.initiate({_id: \"rs0\", members: [{_id: 0, host: \"mongo\"}]})'
+        mongosh --host mongo --eval 'rs.status()'
+      "
+    networks:
+      - rocketchat-network
+
+volumes:
+  mongo-data:
+    driver: local
+  rocketchat-uploads:
+    driver: local
+
+networks:
+  rocketchat-network:
+    driver: bridge

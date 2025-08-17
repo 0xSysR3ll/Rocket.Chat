@@ -239,7 +239,8 @@ export const createRoom = async <T extends RoomType>(
 	const shouldBeHandledByFederation = roomProps.federated === true || owner.username.includes(':');
 
 	if (shouldBeHandledByFederation) {
-		const federation = (await License.hasValidLicense()) ? FederationEE : Federation;
+		// FOSS: Always use Federation (not FederationEE)
+		const federation = Federation;
 		await federation.beforeCreateRoom(roomProps);
 	}
 

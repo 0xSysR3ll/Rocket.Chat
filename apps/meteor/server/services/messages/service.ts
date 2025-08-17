@@ -13,7 +13,7 @@ import { executeSendMessage } from '../../../app/lib/server/methods/sendMessage'
 import { executeSetReaction } from '../../../app/reactions/server/setReaction';
 import { settings } from '../../../app/settings/server';
 import { getUserAvatarURL } from '../../../app/utils/server/getUserAvatarURL';
-import { BeforeSaveCannedResponse } from '../../../ee/server/hooks/messages/BeforeSaveCannedResponse';
+// import { BeforeSaveCannedResponse } from '../../../ee/server/hooks/messages/BeforeSaveCannedResponse'; // Removed for FOSS
 import { FederationMatrixInvalidConfigurationError } from '../federation/utils';
 import { FederationActions } from './hooks/BeforeFederationActions';
 import { BeforeSaveBadWords } from './hooks/BeforeSaveBadWords';
@@ -37,7 +37,7 @@ export class MessageService extends ServiceClassInternal implements IMessageServ
 
 	private jumpToMessage: BeforeSaveJumpToMessage;
 
-	private cannedResponse: BeforeSaveCannedResponse;
+	// private cannedResponse: BeforeSaveCannedResponse; // FOSS: Canned response disabled
 
 	private markdownParser: BeforeSaveMarkdownParser;
 
@@ -61,7 +61,7 @@ export class MessageService extends ServiceClassInternal implements IMessageServ
 				return (user && getUserAvatarURL(user)) || '';
 			},
 		});
-		this.cannedResponse = new BeforeSaveCannedResponse();
+		// this.cannedResponse = new BeforeSaveCannedResponse(); // FOSS: Canned response disabled
 		this.markdownParser = new BeforeSaveMarkdownParser(!disableMarkdownParser);
 		this.checkMAC = new BeforeSaveCheckMAC();
 
@@ -180,7 +180,7 @@ export class MessageService extends ServiceClassInternal implements IMessageServ
 		}
 
 		message = await mentionServer.execute(message);
-		message = await this.cannedResponse.replacePlaceholders({ message, room, user });
+		// message = await this.cannedResponse.replacePlaceholders({ message, room, user }); // FOSS: Canned response disabled
 		message = await this.badWords.filterBadWords({ message });
 		message = await this.markdownParser.parseMarkdown({ message, config: this.getMarkdownConfig() });
 		message = await this.spotify.convertSpotifyLinks({ message });

@@ -26,7 +26,7 @@ import { checkOnlineForDepartment } from './departmentsLib';
 import { afterInquiryQueued, afterRoomQueued, beforeDelegateAgent, beforeRouteChat, onNewRoom } from './hooks';
 import { checkOnlineAgents, getOnlineAgents } from './service-status';
 import { getInquirySortMechanismSetting } from './settings';
-import { dispatchInquiryPosition } from '../../../../ee/app/livechat-enterprise/server/lib/Helper';
+// import { dispatchInquiryPosition } from '../../../../ee/app/livechat-enterprise/server/lib/Helper'; // Removed for FOSS
 import { client, shouldRetryTransaction } from '../../../../server/database/utils';
 import { sendNotification } from '../../../lib/server';
 import { notifyOnLivechatInquiryChangedById, notifyOnLivechatInquiryChanged } from '../../../lib/server/lib/notifyListener';

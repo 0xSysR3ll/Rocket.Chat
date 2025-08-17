@@ -19,11 +19,12 @@ export const SidebarFooterWatermark = (): ReactElement | null => {
 		return null;
 	}
 
-	const license = response.data;
+	// const license = response.data; // FOSS: License check disabled
 
-	if (license?.activeModules.includes('hide-watermark') && !license.trial) {
-		return null;
-	}
+	// FOSS: License check disabled - always show watermark
+	// if (license?.activeModules.includes('hide-watermark') && !license.trial) {
+	// 	return null;
+	// }
 
 	return (
 		<Box pi={16} pbe={8}>

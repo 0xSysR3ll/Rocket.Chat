@@ -1,6 +1,6 @@
 import { api } from '@rocket.chat/core-services';
 import { Logger } from '@rocket.chat/logger';
-import { OmnichannelTranscript, QueueWorker } from '@rocket.chat/omnichannel-services';
+// import { OmnichannelTranscript, QueueWorker } from '@rocket.chat/omnichannel-services';
 import { MongoInternals } from 'meteor/mongo';
 
 import { AuthorizationLivechat } from '../../app/livechat/server/roomAccessValidator.internalService';
@@ -64,17 +64,18 @@ export const registerServices = async (): Promise<void> => {
 
 	// if the process is running in micro services mode we don't need to register services that will run separately
 	if (!isRunningMs()) {
-		const { Presence } = await import('@rocket.chat/presence');
+		// const { Presence } = await import('@rocket.chat/presence');
+		// FOSS version - no presence service
 
 		const { Authorization } = await import('./authorization/service');
 
-		api.registerService(new Presence());
+		// api.registerService(new Presence()); // FOSS: Presence service disabled
 		api.registerService(new Authorization());
 
 		// Run EE services defined outside of the main repo
 		// Otherwise, monolith would ignore them :(
 		// Always register the service and manage licensing inside the service (tbd)
-		api.registerService(new QueueWorker(db, Logger));
-		api.registerService(new OmnichannelTranscript(Logger, i18n));
+		// api.registerService(new QueueWorker(db, Logger)); // FOSS: QueueWorker disabled
+		// api.registerService(new OmnichannelTranscript(Logger, i18n)); // FOSS: OmnichannelTranscript disabled
 	}
 };

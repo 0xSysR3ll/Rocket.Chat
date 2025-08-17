@@ -81,7 +81,8 @@ export async function setUserActiveStatus(
 				});
 			}
 
-			const federation = (await License.hasValidLicense()) ? FederationEE : Federation;
+			// FOSS: Always use Federation (not FederationEE)
+			const federation = Federation;
 
 			await federation.deactivateRemoteUser(remoteUser);
 		}

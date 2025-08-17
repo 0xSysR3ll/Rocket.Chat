@@ -1,4 +1,4 @@
-import { AirGappedRestriction } from '@rocket.chat/license';
+// import { AirGappedRestriction } from '@rocket.chat/license';
 import { Statistics } from '@rocket.chat/models';
 
 import { sendUsageReportAndComputeRestriction } from './usageReport';

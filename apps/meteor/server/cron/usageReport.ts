@@ -1,5 +1,5 @@
 import { cronJobs } from '@rocket.chat/cron';
-import { AirGappedRestriction } from '@rocket.chat/license';
+// import { AirGappedRestriction } from '@rocket.chat/license';
 import type { Logger } from '@rocket.chat/logger';
 import { Statistics } from '@rocket.chat/models';
 
@@ -10,7 +10,7 @@ export const sendUsageReportAndComputeRestriction = async (statsToken?: string) 
 	// to ensure that the restriction respects the warning period.
 	// If no token is passed, the workspace will be instantly restricted.
 	const token = statsToken || (await Statistics.findLastStatsToken());
-	void AirGappedRestriction.computeRestriction(token);
+	// void AirGappedRestriction.computeRestriction(token); // FOSS: AirGappedRestriction disabled
 };
 
 export async function usageReportCron(logger: Logger): Promise<void> {

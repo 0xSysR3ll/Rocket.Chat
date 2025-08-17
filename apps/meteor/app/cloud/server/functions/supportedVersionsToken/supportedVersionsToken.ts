@@ -1,5 +1,5 @@
 import type { SettingValue } from '@rocket.chat/core-typings';
-import { License } from '@rocket.chat/license';
+// import { License } from '@rocket.chat/license';
 import { Settings } from '@rocket.chat/models';
 import type { SignedSupportedVersions, SupportedVersions } from '@rocket.chat/server-cloud-communication';
 import type { Response } from '@rocket.chat/server-fetch';
@@ -136,7 +136,8 @@ const getSupportedVersionsToken = async (retry = 0) => {
 	 * Gets the latest version
 	 * return the token
 	 */
-	const [versionsFromLicense, cloudResponse] = await Promise.all([License.getLicense(), getSupportedVersionsFromCloud()]);
+	// FOSS: License check disabled - always use null for license versions
+	const [versionsFromLicense, cloudResponse] = await Promise.all([Promise.resolve(null as any), getSupportedVersionsFromCloud()]);
 
 	const supportedVersions = await supportedVersionsChooseLatest(
 		supportedVersionsFromBuild,

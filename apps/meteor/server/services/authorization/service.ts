@@ -41,16 +41,17 @@ export class Authorization extends ServiceClass implements IAuthorization {
 
 	async started(): Promise<void> {
 		try {
-			if (!(await License.hasValidLicense())) {
-				return;
-			}
+			// FOSS: License checks disabled
+			// if (!(await License.hasValidLicense())) {
+			// 	return;
+			// }
 
-			const permissions = await License.getGuestPermissions();
-			if (!permissions) {
-				return;
-			}
+			// const permissions = await License.getGuestPermissions();
+			// if (!permissions) {
+			// 	return;
+			// }
 
-			AuthorizationUtils.addRolePermissionWhiteList('guest', permissions);
+			// AuthorizationUtils.addRolePermissionWhiteList('guest', permissions);
 		} catch (error) {
 			console.error('Authorization Service did not start correctly', error);
 		}

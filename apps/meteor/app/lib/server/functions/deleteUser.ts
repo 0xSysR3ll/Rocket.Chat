@@ -50,7 +50,8 @@ export async function deleteUser(userId: string, confirmRelinquish = false, dele
 	}
 
 	if (isUserFederated(user)) {
-		const service = (await License.hasValidLicense()) ? FederationEE : Federation;
+		// FOSS: Always use Federation (not FederationEE)
+		const service = Federation;
 
 		const result = await service.verifyMatrixIds([user.username as string]);
 

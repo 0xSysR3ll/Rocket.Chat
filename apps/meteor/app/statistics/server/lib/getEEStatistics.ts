@@ -2,7 +2,7 @@ import { log } from 'console';
 
 import { Analytics } from '@rocket.chat/core-services';
 import type { IStats } from '@rocket.chat/core-typings';
-import { License } from '@rocket.chat/license';
+// import { License } from '@rocket.chat/license';
 import { CannedResponse, OmnichannelServiceLevelAgreements, LivechatRooms, LivechatTag, LivechatUnit, Users } from '@rocket.chat/models';
 
 import { getVoIPStatistics } from './getVoIPStatistics';
@@ -15,8 +15,8 @@ type EEOnlyStats = Omit<ENTERPRISE_STATISTICS, keyof GenericStats>;
 
 export async function getStatistics(): Promise<ENTERPRISE_STATISTICS> {
 	const genericStats: GenericStats = {
-		modules: License.getModules(),
-		tags: License.getTags().map(({ name }) => name),
+		modules: [], // FOSS: License.getModules() disabled
+		tags: [], // FOSS: License.getTags() disabled
 		seatRequests: await Analytics.getSeatRequestCount(),
 	};
 
@@ -31,9 +31,8 @@ export async function getStatistics(): Promise<ENTERPRISE_STATISTICS> {
 }
 
 async function getEEStatistics(): Promise<EEOnlyStats | undefined> {
-	if (!License.hasModule('livechat-enterprise')) {
-		return;
-	}
+	// FOSS: License check disabled - always return undefined for enterprise stats
+	return;
 
 	const statsPms: Array<Promise<any>> = [];
 

@@ -1,5 +1,5 @@
 import type { LicenseBehavior, LicenseLimitKind } from '@rocket.chat/core-typings';
-import { validateWarnLimit } from '@rocket.chat/license/src/validation/validateLimit';
+// import { validateWarnLimit } from '@rocket.chat/license/src/validation/validateLimit';
 
 import { useLicense } from './useLicense';
 
@@ -23,12 +23,13 @@ export const useLicenseLimitsByBehavior = () => {
 	// Get the rule with the highest limit that applies to this key
 	const rules = keyLimits
 		.map((key) => {
-			const rule = license.limits[key]
-				?.filter((limit) => validateWarnLimit(limit.max, limits[key].value ?? 0, limit.behavior))
-				.reduce<{
-					max: number;
-					behavior: LicenseBehavior;
-				} | null>((maxLimit, currentLimit) => (!maxLimit || currentLimit.max > maxLimit.max ? currentLimit : maxLimit), null);
+			// const rule = license.limits[key]
+			// 	?.filter((limit) => validateWarnLimit(limit.max, limits[key].value ?? 0, limit.behavior))
+			// 	.reduce<{
+			// 		max: number;
+			// 		behavior: LicenseBehavior;
+			// 	} | null>((maxLimit, currentLimit) => (!maxLimit || currentLimit.max > maxLimit.max ? currentLimit : maxLimit), null);
+			const rule = null; // FOSS version - no license validation
 
 			if (!rule) {
 				return undefined;

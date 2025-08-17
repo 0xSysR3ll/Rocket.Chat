@@ -1,10 +1,10 @@
-import type { IAuditLog } from '@rocket.chat/core-typings';
+// import type { IAuditLog } from '@rocket.chat/core-typings'; // Removed for FOSS
 import { useMethod } from '@rocket.chat/ui-contexts';
 import { useMutation } from '@tanstack/react-query';
 
 import type { AuditFields } from './useAuditForm';
 
-export const useAuditMutation = (type: IAuditLog['fields']['type']) => {
+export const useAuditMutation = (type: any) => {
 	const getAuditMessages = useMethod('auditGetMessages');
 	const getOmnichannelAuditMessages = useMethod('auditGetOmnichannelMessages');
 

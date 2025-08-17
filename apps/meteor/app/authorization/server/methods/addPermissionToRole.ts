@@ -16,9 +16,10 @@ declare module '@rocket.chat/ddp-client' {
 
 Meteor.methods<ServerMethods>({
 	async 'authorization:addPermissionToRole'(permissionId, role) {
-		if (role === 'guest' && !AuthorizationUtils.hasRestrictionsToRole(role) && (await License.hasValidLicense())) {
-			AuthorizationUtils.addRolePermissionWhiteList(role, await License.getGuestPermissions());
-		}
+		// FOSS: License checks disabled
+		// if (role === 'guest' && !AuthorizationUtils.hasRestrictionsToRole(role) && (await License.hasValidLicense())) {
+		// 	AuthorizationUtils.addRolePermissionWhiteList(role, await License.getGuestPermissions());
+		// }
 
 		if (AuthorizationUtils.isPermissionRestrictedForRole(permissionId, role)) {
 			throw new Meteor.Error('error-action-not-allowed', 'Permission is restricted', {

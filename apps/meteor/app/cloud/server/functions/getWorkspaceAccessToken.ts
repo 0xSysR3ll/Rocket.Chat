@@ -1,4 +1,4 @@
-import type { IWorkspaceCredentials } from '@rocket.chat/core-typings';
+// import type { IWorkspaceCredentials } from '@rocket.chat/core-typings'; // Removed for FOSS
 import { WorkspaceCredentials } from '@rocket.chat/models';
 
 import { SystemLogger } from '../../../../server/lib/logger/system';
@@ -6,7 +6,7 @@ import { workspaceScopes } from '../oauthScopes';
 import { getWorkspaceAccessTokenWithScope } from './getWorkspaceAccessTokenWithScope';
 import { retrieveRegistrationStatus } from './retrieveRegistrationStatus';
 
-const hasWorkspaceAccessTokenExpired = (credentials: IWorkspaceCredentials): boolean => new Date() >= credentials.expirationDate;
+const hasWorkspaceAccessTokenExpired = (credentials: any): boolean => new Date() >= credentials.expirationDate;
 
 /**
  * Returns the access token for the workspace, if it is expired or forceNew is true, it will get a new one
